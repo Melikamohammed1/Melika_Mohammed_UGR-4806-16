@@ -1,65 +1,67 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(BottomNavApp());
-}
+void main() => runApp(BottomNavApp());
 
 class BottomNavApp extends StatelessWidget {
+  const BottomNavApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bottom Navigation Lab',
+      debugShowCheckedModeBanner: false,
+      title: 'Bottom Navigation',
+      theme: ThemeData(primarySwatch: Colors.green),
       home: MainScreen(),
     );
   }
 }
+
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
+  static List<Widget> _screens = <Widget>[
     HomeScreen(),
     FavoritesScreen(),
     ProfileScreen(),
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Bottom Navigation Example")),
-      body: _screens[_currentIndex],
-
+      appBar: AppBar(title: Text('Bottom Navigation Demo')),
+      body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: "Favorites",
+            label: 'Favorites',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
   }
 }
+
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -75,11 +77,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Details Screen")),
+      appBar: AppBar(title: Text('Details')),
       body: Center(
         child: ElevatedButton(
           child: Text("Go Back"),
@@ -91,19 +96,21 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
+
 class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Favorites Screen"),
-    );
+    return Center(child: Text('Your favorite items appear here.'));
   }
 }
+
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Profile Screen"),
-    );
+    return Center(child: Text('User profile information.'));
   }
 }
