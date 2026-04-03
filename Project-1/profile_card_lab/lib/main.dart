@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Fluter Developer',
+                  'Flutter Developer',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 SizedBox(height: 16),
